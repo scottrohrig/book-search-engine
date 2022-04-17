@@ -29,6 +29,7 @@ const SearchBooks = () => {
     }
 
     try {
+      // convert to mutation
       const response = await searchGoogleBooks(searchInput);
 
       if (!response.ok) {
@@ -65,6 +66,9 @@ const SearchBooks = () => {
     }
 
     try {
+      // Use the Apollo useMutation() Hook to execute the SAVE_BOOK mutation
+      // in the handleSaveBook() function instead of the saveBook() function
+      // imported from the API file.
       const response = await saveBook(bookToSave, token);
 
       if (!response.ok) {
