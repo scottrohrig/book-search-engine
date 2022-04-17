@@ -8,6 +8,7 @@ mutation LoginUser($email: String!, $password: String!) {
       _id
       username
       email
+    }
   }
 }
 `;
@@ -40,7 +41,6 @@ mutation SaveBook($book: BookUpdate!) {
       link
       title
     }
-
   }
 }
 `;
