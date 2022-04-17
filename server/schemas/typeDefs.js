@@ -1,19 +1,19 @@
 const { gql } = require( 'apollo-server-express' );
 
 const typeDefs = gql`
+
   type User {
     _id: ID
     username: String
     email: String
-    password: String
+    bookCount: Int
     savedBooks: [Book]
   }
 
   type Book {
-    _id: ID
+    bookId: String
     authors: [String]
     description: String
-    bookId: String
     image: String
     link: String
     title: String
@@ -25,20 +25,26 @@ const typeDefs = gql`
   }
 
   # https://graphql.org/graphql-js/mutations-and-input-types/
-  # input BookMessage {
-  #   content: String
-  #   author: String
-  # }
-
+  input BookUpdate {
+    bookId: String!
+    author: [String]
+    description: String
+    image: String
+    link: String
+    title: String
+  }
 
   type Query {
     me: User
+    book: Book # not yet implemented
+    users: [User]
   }
+
   type Mutation {
-    addUser: Auth
-    login: Auth
-    saveBook: User # look into 'input' type to handle params
-    removeBook(bookId: ID): User
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
+    saveBook(book: BookUpdate!): User # look into 'input' type to handle params
+    removeBook(bookId: ID!): User
   }
 `;
 
