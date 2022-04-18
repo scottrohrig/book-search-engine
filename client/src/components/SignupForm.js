@@ -34,12 +34,12 @@ const SignupForm = () => {
     let success = false;
 
     try {
-      const { token, user } = await addUser( { variables: userFormData } );
+      const { data } = await addUser( { variables: userFormData } );
 
-      console.log( user );
+      const token = data?.addUser.token;
+
       Auth.login( token );
       success = true;
-      console.log('success try', success);
     } catch ( err ) {
       console.error( err );
       setShowAlert( true );

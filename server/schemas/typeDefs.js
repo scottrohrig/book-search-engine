@@ -27,7 +27,7 @@ const typeDefs = gql`
   # https://graphql.org/graphql-js/mutations-and-input-types/
   input BookUpdate {
     bookId: String!
-    author: [String]
+    authors: [String]
     description: String
     image: String
     link: String
@@ -36,14 +36,13 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    book: Book # not yet implemented
     users: [User]
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     loginUser(email: String!, password: String!): Auth
-    saveBook(book: BookUpdate!): User # look into 'input' type to handle params
+    saveBook(book: BookUpdate!): User
     removeBook(bookId: ID!): User
   }
 `;

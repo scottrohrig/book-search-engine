@@ -9,16 +9,13 @@ const resolvers = {
         const me = await User.findOne( {
           _id: context.user._id
         } )
-          .select( '-__v password' )
+          .select( '-__v -password' )
           .populate( 'savedBooks' );
 
         return me;
       }
 
       throw new AuthenticationError( 'Not logged in' );
-    },
-    book: async ( parent, args, context ) => {
-      // not yet implemented
     },
     users: async ( parent, args, context ) => {
       return User.find();
@@ -33,9 +30,13 @@ const resolvers = {
     },
     loginUser: async ( parent, { email, password } ) => {
       const user = await User.findOne( { email } );
-      if ( !user ) { throw new AuthenticationError( 'Incorrect Credentials' ); }
+      if ( !user ) {
+        throw new AuthenticationError( 'Incorrect Credentials' );
+    }
       const isCorrectPw = await user.isCorrectPassword( password );
-      if ( !isCorrectPw ) { throw new AuthenticationError( 'Incorrect Credentials' ); }
+      if ( !isCorrectPw ) {
+        throw new AuthenticationError( 'Incorrect Credentials' );
+    }
 
       const token = signToken( user );
       return { token, user };
